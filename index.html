@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="言言小卖部 — 不定期更新的 Galgame 小店">
+  <title>言言小卖部5＄店</title>
+  <link rel="icon" href="wbys.png">
+  <style>
+    :root {
+      --bg: #09090b;
+      --card: rgba(24, 18, 24, 0.78);
+      --card-solid: #161216;
+      --line: rgba(255, 255, 255, 0.09);
+      --text: #f6f2f4;
+      --muted: #b7a8b0;
+      --faint: #8d7d86;
+      --accent: #ff4d6d;
+      --accent-2: #ff8fa3;
+      --accent-soft: rgba(255, 77, 109, 0.14);
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.38);
+      --radius: 22px;
+      --max: 920px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      color: var(--text);
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+      line-height: 1.75;
+      background:
+        radial-gradient(820px 420px at 50% -8%, rgba(255, 77, 109, 0.22), transparent 62%),
+        radial-gradient(640px 480px at 100% 8%, rgba(168, 92, 196, 0.16), transparent 58%),
+        radial-gradient(520px 420px at 0% 30%, rgba(255, 143, 163, 0.08), transparent 55%),
+        var(--bg);
+      background-attachment: fixed;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: url(bj.png) center top / cover no-repeat;
+      opacity: 0.35;
+      z-index: -1;
+    }
+
+    a { color: inherit; }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 28px 0 4px;
+      text-align: center;
+    }
+
+    .logo {
+      width: min(560px, 94vw);
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      filter: contrast(1.4);
+      mix-blend-mode: screen;
+    }
+
+    .shelf-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 36px 0 18px;
+    }
+
+    .shelf-head h1 {
+      font-size: 22px;
+      font-weight: 650;
+      letter-spacing: 0.08em;
+    }
+
+    .shelf-head p {
+      margin-top: 4px;
+      color: var(--faint);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+    }
+
+    .count {
+      flex: none;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.12em;
+    }
+
+    .list {
+      display: grid;
+      gap: 22px;
+      padding-bottom: 28px;
+    }
+
+    .card {
+      overflow: hidden;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 80px), var(--card);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .cover {
+      background: #100d10;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cover img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .name {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .num {
+      flex: none;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+    }
+
+    .body {
+      padding: 22px 24px 26px;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    h2 {
+      font-size: 26px;
+      line-height: 1.35;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .note {
+      flex: none;
+      margin-top: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+      font-size: 12px;
+      font-style: normal;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      list-style: none;
+      margin: 14px 0 18px;
+    }
+
+    .tags li {
+      padding: 4px 11px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #ffd0d8;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+    }
+
+    .synopsis {
+      padding: 16px 18px 6px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .synopsis h3 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      color: var(--accent-2);
+      font-size: 13px;
+      font-weight: 650;
+      letter-spacing: 0.16em;
+    }
+
+    .synopsis h3::before {
+      content: "";
+      width: 14px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--accent);
+    }
+
+    .synopsis p {
+      margin-bottom: 10px;
+      color: #ebe4e7;
+      font-size: 15.5px;
+    }
+
+    .synopsis p.quote {
+      color: #fff;
+      font-size: 16px;
+    }
+
+    footer {
+      padding: 8px 0 40px;
+      text-align: center;
+      color: var(--faint);
+      font-size: 13px;
+      letter-spacing: 0.12em;
+    }
+
+    footer span {
+      color: var(--accent);
+    }
+
+    @media (max-width: 640px) {
+      header { padding-top: 28px; }
+      .shelf-head { margin-top: 28px; }
+      .shelf-head h1 { font-size: 18px; }
+      h2 { font-size: 22px; }
+      .body { padding: 18px 16px 20px; }
+      .synopsis p { font-size: 15px; }
+      .title-row { flex-direction: column; }
+      .note { margin-top: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img class="logo" src="logo.jpg" alt="言言小卖部，不定期更新">
+    </header>
+
+    <main>
+      <div class="shelf-head">
+        <div>
+          <h1>展示商品（5＄店）</h1>
+          <p>预计每两天群聊上架五款好游</p>
+        </div>
+        <div class="count">05 件</div>
+      </div>
+
+      <div class="list">
+        <article class="card">
+          <figure class="cover">
+            <a href="sp1.jpg" target="_blank" rel="noopener">
+              <img src="sp1.jpg" alt="漏洞百出！">
+            </a>
+          </figure>
+          <div class="body">
+            <div class="title-row">
+              <div class="name">
+                <span class="num">01</span>
+                <h2>漏洞百出！</h2>
+                <div>11.24</div>
+              </div>
+            </div>
+            <ul class="tags">
+              <li>Galgame</li>
+              <li>多结局</li>
+              <li>恋爱</li>
+            </ul>
+            <div class="synopsis">
+              <h3>剧情概要</h3>
+              <p>从春天开始就要参加工作了，主人公从乡下独自来到东京。为了省下房租，他住进了东京的亲戚家借宿。</p>
+              <p>出来迎接他的是，温柔又胸部丰满的寡妇婶婶“美惠”，和正值青春期、态度冷淡的堂妹“有希”。</p>
+              <p class="quote">“就算是在自己家里，她们俩也太没有防备了吧.....?”</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <figure class="cover">
+            <a href="sp2.jpg" target="_blank" rel="noopener">
+              <img src="sp2.jpg" alt="幸福家里蹲的养成方法">
+            </a>
+          </figure>
+          <div class="body">
+            <div class="title-row">
+              <div class="name">
+                <span class="num">02</span>
+                <h2>幸福家里蹲的养成方法</h2>
+                <div>11.24</div>
+              </div>
+              <em class="note">附带作弊菜单</em>
+            </div>
+            <ul class="tags">
+              <li>Galgame</li>
+              <li>离线可游玩</li>
+              <li>剧情驱动</li>
+            </ul>
+            <div class="synopsis">
+              <h3>剧情概要</h3>
+              <p>突然造访的远亲家里蹲少女，将成为你的家人，两人一起展开一段温馨、救赎的同居模拟生活。</p>
+              <p>逢双亲失踪痛苦的霁，因为亲戚无法照顾而辗转被你收养，怕生难以亲近的家里蹲少女。</p>
+              <p>玩家将透过与她生活上的互动与对话一点一点打开她的心房，让她学会找到自己的梦想与人生的意义。</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <figure class="cover">
+            <a href="sp3.jpg" target="_blank" rel="noopener">
+              <img src="sp3.jpg" alt="和存在感薄弱妹妹一起的简单生活">
+            </a>
+          </figure>
+          <div class="body">
+            <div class="title-row">
+              <div class="name">
+                <span class="num">03</span>
+                <h2>和存在感薄弱妹妹一起的简单生活</h2>
+                <div>11.24</div>
+              </div>
+              <em class="note">附带作弊码</em>
+            </div>
+            <ul class="tags">
+              <li>即时战斗</li>
+              <li>RPG</li>
+              <li>多事件</li>
+            </ul>
+            <div class="synopsis">
+              <h3>剧情概要</h3>
+              <p>玩家扮演一位和妹妹共同生活的冒险者</p>
+              <p>为了治好妹妹特殊的体制问题，在深渊中不断寻找用于制作“红髓液”的材料</p>
+              <p>如果在时限内不能完成的话，妹妹就会......</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <figure class="cover">
+            <a href="sp4.jpg" target="_blank" rel="noopener">
+              <img src="sp4.jpg" alt="萨雅小姐的帮助">
+            </a>
+          </figure>
+          <div class="body">
+            <div class="title-row">
+              <div class="name">
+                <span class="num">04</span>
+                <h2>萨雅小姐的帮助</h2>
+                <div>11.24</div>
+              </div>
+              <em class="note">附带作弊码</em>
+            </div>
+            <ul class="tags">
+              <li>剧情驱动</li>
+              <li>RPG</li>
+              <li>多结局</li>
+            </ul>
+            <div class="synopsis">
+              <h3>剧情概要</h3>
+              <p>小识：这个游戏的剧情还是诸位自行体会的好</p>
+              <p>慢慢摸索吧诸位棍勇</p>
+              <p>药水是个好东西......</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <figure class="cover">
+            <a href="sp5.jpg" target="_blank" rel="noopener">
+              <img src="sp5.jpg" alt="MocaLoveRelive">
+            </a>
+          </figure>
+          <div class="body">
+            <div class="title-row">
+              <div class="name">
+                <span class="num">05</span>
+                <h2>MocaLoveRelive</h2>
+                <div>11.24</div>
+              </div>
+              <em class="note"></em>
+            </div>
+            <ul class="tags">
+              <li>桌面化</li>
+              <li>互动</li>
+              <li></li>
+            </ul>
+            <div class="synopsis">
+              <h3>简介</h3>
+              <p>是一款即时使用的，喜欢这类的整体不错。</p>
+            </div>
+          </div>
+        </article>
+        
+        <div class="synopsis">
+              <h3>运营好友；群聊添加；运营加鸡腿催更</h3>
+              <img src="yl.jpg">
+              <p>H油；Hp；H图；本子；软件</p> 
+              <p>售卖</p>
+            </div>
+        
+      </div>
+    </main>
+
+    <footer>
+      <p><span>♥</span> &copy; 识鉴</p>
+    </footer>
+  </div>
+</body>
+</html>
